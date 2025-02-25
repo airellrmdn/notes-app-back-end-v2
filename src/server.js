@@ -31,12 +31,14 @@ const UploadsValidator = require('./validator/uploads');
 // Upload to S3 Storage
 // const StorageService = require('./services/S3/StorageService');
 
+const CacheService = require('./services/redis/CacheService');
 const TokenManager = require('./tokenize/TokenManager');
 const ClientError = require('./exception/ClientError');
 
 const init = async () => {
-  const collaborationsService = new CollaborationsService();
-  const notesService = new NotesService(collaborationsService);
+  const cacheService = new CacheService();
+  const collaborationsService = new CollaborationsService(cacheService);
+  const notesService = new NotesService(collaborationsService, cacheService);
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
   const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
