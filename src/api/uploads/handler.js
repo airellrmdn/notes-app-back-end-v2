@@ -11,6 +11,8 @@ class UploadsHandler {
     this._validator.validateImageHeaders(data.hapi.headers);
 
     const filename = await this._service.writeFile(data, data.hapi);
+    // If use S3 Storage
+    // const fileLocation = await this._service.writeFile(data, data.hapi);
 
     const response = h.response({
       status: 'success',

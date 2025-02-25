@@ -28,6 +28,8 @@ const ExportsValidator = require('./validator/exports');
 const uploads = require('./api/uploads');
 const StorageService = require('./services/storage/StorageService');
 const UploadsValidator = require('./validator/uploads');
+// Upload to S3 Storage
+// const StorageService = require('./services/S3/StorageService');
 
 const TokenManager = require('./tokenize/TokenManager');
 const ClientError = require('./exception/ClientError');
@@ -38,6 +40,8 @@ const init = async () => {
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
   const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
+  // If use S3 Storage
+  // const storageService = new StorageService();
 
   const server = Hapi.server({
     port: process.env.PORT,
